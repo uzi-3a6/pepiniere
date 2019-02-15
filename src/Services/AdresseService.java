@@ -26,6 +26,7 @@ public class AdresseService {
 
     public AdresseService() throws SQLException {
          cnx = MyDBcon.getInstance().getCnx();
+         
     }
     
     public int ajouterAdresse(Adresse a) {
