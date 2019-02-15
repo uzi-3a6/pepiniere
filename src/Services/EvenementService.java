@@ -5,8 +5,9 @@
  */
 package services;
 
-import DB.DB;
+import DB.MyDBcon;
 import Entities.Evenement;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,13 +22,17 @@ import java.util.List;
 
 
 public class EvenementService {
-    static DB ds =DB.getInstance(); 
+     Connection ds;
+
+    public EvenementService() throws SQLException {
+         ds = MyDBcon.getInstance().getCnx();
+    }
     
-    public static void insererEvenement (Evenement e)
+    public void insererEvenement (Evenement e)
     {
     String req="INSERT INTO evenement (nomEvenement,idCategorieEvenement,dateDebut,dateFin,etat,nbPlace,nbStand,prix,image) VALUES(?,?,?,?,?,?,?,?,?)" ; 
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              
             ste.setString(1,e.getNomEvenement()) ; 
             ste.setString(2,e.getIdCategorieEvenement()) ; 
@@ -46,11 +51,11 @@ public class EvenementService {
     
     }
     
-    public static void updateEvenement (Evenement e)
+    public void updateEvenement (Evenement e)
     {
     String req="UPDATE evenement SET nomEvenement=?,idCategorieEvenement=?,dateDebut=?,dateFin=?,etat=?,nbPlace=?,nbStand=?,prix=?,image=? WHERE idEvenement =?" ; 
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              
             ste.setString(1,e.getNomEvenement()) ; 
             ste.setString(2,e.getIdCategorieEvenement()) ; 
@@ -71,11 +76,11 @@ public class EvenementService {
     
     }
     
-    public static void DeleteEvenementById (int e)
+    public void DeleteEvenementById (int e)
     {
     String req="DELETE  from evenement where  idEvenement =?" ; 
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              
             
             ste.setInt(1,e) ;
@@ -87,13 +92,13 @@ public class EvenementService {
     }
     
     
-    public static List<Evenement> selectEvenement ()
+    public List<Evenement> selectEvenement ()
     {
         List<Evenement> list =new ArrayList<>() ; 
     String req ; 
         req = "SELECT *  FROM evenement ";
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              ResultSet result =ste.executeQuery() ; 
             while (result.next()){
             list.add(new Evenement(

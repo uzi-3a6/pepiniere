@@ -19,7 +19,7 @@ public class MyDBcon {
     private static MyDBcon instance;
     private Connection cnx ;
     
-    final String url = "jdbc:mysql://127.0.0.1/pepiniere";
+    final String url = "jdbc:mysql://localhost:3306/pepiniere?autoReconnect=true&useSSL=false";
     final String login = "root";
     final String password = "";
 

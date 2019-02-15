@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -73,7 +74,7 @@ public class AjouterEvenementFXMLController implements Initializable {
     
     
     @FXML
-    private void ActionAjouter(ActionEvent event) throws IOException {
+    private void ActionAjouter(ActionEvent event) throws IOException, SQLException {
         String nomEvenementS =nomEvenement.getText();
         String idCategorieEvenementS=idCategorieEvenement.getText();
         LocalDate dateDebutS = dateDebut.getValue();
@@ -89,7 +90,7 @@ public class AjouterEvenementFXMLController implements Initializable {
         java.sql.Date datef = java.sql.Date.valueOf(dateFinS);
         Evenement e = new Evenement(nomEvenementS,idCategorieEvenementS,datedeb, datef, etatS,Integer.parseInt(nbPlaceS),Integer.parseInt(nbStandS),Integer.parseInt(nbStandS) ,imageS);
         
-         services.EvenementService ev = new EvenementService() ; 
+         EvenementService ev = new EvenementService() ; 
         ev.insererEvenement(e);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Votre evenement est ajouter  avec succeeees");

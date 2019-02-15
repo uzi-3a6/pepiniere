@@ -8,6 +8,7 @@ package gestion_evenement;
 import Entities.ReservationEvenement;
 import Entities.Stand;
 import java.sql.Date;
+import java.sql.SQLException;
 import services.ReservationEvenementService;
 
 /**
@@ -17,19 +18,22 @@ import services.ReservationEvenementService;
 public class GestionReservationEvenement {
     
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         ReservationEvenement re1 =new ReservationEvenement(18, 3, new Date (1996,7,7), 1);
         ReservationEvenement re2 =new ReservationEvenement(1,1, 4, new Date (1996,7,7), 40);
+        ReservationEvenementService res =new ReservationEvenementService();
+       
+        
+      //  res.insererReservationEvenement(re1);
+        
+        
+     //   res.updateReservationEvenement(re2);
+     
+        
+        
+     //   res.DeleteReservationEvenementById(1);
           
-        ReservationEvenementService.insererReservationEvenement(re1);
-        
-        
-        //ReservationEvenementService.updateReservationEvenement(re2);
-        
-        
-        //ReservationEvenementService.DeleteReservationEvenementById(1);
-          
-        //ReservationEvenementService.selectReservationEvenement().forEach((s)->{System.out.println(s);});
+      //  res.selectReservationEvenement().forEach((s)->{System.out.println(s);});
            
            
           

@@ -5,15 +5,16 @@
  */
 package services;
 
-import DB.DB;
+import DB.MyDBcon;
 import Entities.ReservationEvenement;
 import Entities.Stand;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import static services.StandService.ds;
+
 
 /**
  *
@@ -21,14 +22,18 @@ import static services.StandService.ds;
  */
 public class ReservationEvenementService {
     
-    static DB ds =DB.getInstance();
+   Connection ds;
+
+    public ReservationEvenementService() throws SQLException {
+         ds = MyDBcon.getInstance().getCnx();
+    }
      
-       public static void insererReservationEvenement (ReservationEvenement re)
+       public void insererReservationEvenement (ReservationEvenement re)
     {
         int test=0;
         String req2 = "SELECT nbPlace  FROM evenement WHERE idEvenement =? ";
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req2) ;
+            PreparedStatement ste = ds.prepareStatement(req2) ;
             ste.setInt(1,re.getIdEvenement()) ; 
             ResultSet result =ste.executeQuery() ; 
             while (result.next()){
@@ -37,7 +42,7 @@ public class ReservationEvenementService {
                     {
                         String req1="UPDATE evenement SET etat=? WHERE idEvenement =?" ; 
                           try { 
-                                PreparedStatement stee = ds.getConnection().prepareStatement(req1) ;
+                                PreparedStatement stee = ds.prepareStatement(req1) ;
              
            
                                 
@@ -57,7 +62,7 @@ public class ReservationEvenementService {
                     {
                         String req="INSERT INTO reservationevenement (idEvenement,idUser,dateReservation,nbPersonnes) VALUES(?,?,?,?)" ; 
         try { 
-            PreparedStatement stee = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement stee = ds.prepareStatement(req) ;
              
             stee.setInt(1,re.getIdEvenement()) ; 
             stee.setInt(2,re.getIdUser()) ; 
@@ -74,7 +79,7 @@ public class ReservationEvenementService {
     
         String req1="UPDATE evenement SET nbPlace=nbPlace-? WHERE idEvenement =?" ; 
         try { 
-            PreparedStatement stee = ds.getConnection().prepareStatement(req1) ;
+            PreparedStatement stee = ds.prepareStatement(req1) ;
              
            
             stee.setInt(1,re.getNbPersonnes());
@@ -101,11 +106,11 @@ public class ReservationEvenementService {
     
         
     }
-       public static void updateReservationEvenement (ReservationEvenement re)
+       public void updateReservationEvenement (ReservationEvenement re)
     {
     String req="UPDATE reservationevenement SET idEvenement=?,idUser=?,dateReservation=?,nbPersonnes=? WHERE idReservationEvenement =?" ; 
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              
             ste.setInt(1,re.getIdEvenement()) ; 
             ste.setInt(2,re.getIdUser()) ; 
@@ -122,11 +127,11 @@ public class ReservationEvenementService {
     
     }
        
-       public static void DeleteReservationEvenementById (int re)
+       public void DeleteReservationEvenementById (int re)
     {
     String req="DELETE  from reservationevenement where  idReservationEvenement =?" ; 
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              
             
             ste.setInt(1,re) ;
@@ -137,13 +142,13 @@ public class ReservationEvenementService {
     
     }
        
-      public static List<ReservationEvenement> selectReservationEvenement ()
+      public List<ReservationEvenement> selectReservationEvenement ()
     {
         List<ReservationEvenement> list =new ArrayList<>() ; 
     String req ; 
         req = "SELECT *  FROM reservationevenement ";
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              ResultSet result =ste.executeQuery() ; 
             while (result.next()){
             list.add(new ReservationEvenement(

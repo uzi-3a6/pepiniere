@@ -5,28 +5,33 @@
  */
 package services;
 
-import DB.DB;
+import DB.MyDBcon;
 import Entities.Evenement;
 import Entities.Stand;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import static services.EvenementService.ds;
+
 
 /**
  *
  * @author Admin firas
  */
 public class StandService {
-     static DB ds =DB.getInstance();
+    Connection ds;
+
+    public StandService() throws SQLException {
+         ds = MyDBcon.getInstance().getCnx();
+    }
      
-       public static void insererStand (Stand s)
+       public void insererStand (Stand s)
     {
     String req="INSERT INTO stand (numeroStand,idEvenement,idUser,image) VALUES(?,?,?,?)" ; 
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              
             ste.setInt(1,s.getNumeroStand()) ; 
             ste.setInt(2,s.getIdEvenement()) ; 
@@ -41,11 +46,11 @@ public class StandService {
     
     }
     
-    public static void updateStand (Stand s)
+    public void updateStand (Stand s)
     {
     String req="UPDATE stand SET numeroStand=?,idEvenement=?,idUser=?,image=? WHERE idStand =?" ; 
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              
             ste.setInt(1,s.getNumeroStand()) ; 
             ste.setInt(2,s.getIdEvenement()) ; 
@@ -62,11 +67,11 @@ public class StandService {
     
     }
     
-    public static void DeleteStandById (int s)
+    public void DeleteStandById (int s)
     {
     String req="DELETE  from stand where  idStand =?" ; 
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              
             
             ste.setInt(1,s) ;
@@ -78,13 +83,13 @@ public class StandService {
     }
     
     
-    public static List<Stand> selectStand ()
+    public List<Stand> selectStand ()
     {
         List<Stand> list =new ArrayList<>() ; 
     String req ; 
         req = "SELECT *  FROM stand ";
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              ResultSet result =ste.executeQuery() ; 
             while (result.next()){
             list.add(new Stand(

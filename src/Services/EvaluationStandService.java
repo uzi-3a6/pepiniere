@@ -5,15 +5,16 @@
  */
 package services;
 
-import DB.DB;
+import DB.MyDBcon;
 import Entities.EvaluationStand;
 import Entities.Evenement;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import static services.EvenementService.ds;
+
 
 /**
  *
@@ -21,15 +22,19 @@ import static services.EvenementService.ds;
  */
 public class EvaluationStandService {
     
-    static DB ds =DB.getInstance(); 
+    Connection ds;
+
+    public EvaluationStandService() throws SQLException {
+         ds = MyDBcon.getInstance().getCnx();
+    }
     
-    public static int insererEvaluationStand (EvaluationStand es)
+    public int insererEvaluationStand (EvaluationStand es)
     {
         String req3 ; 
         req3 = "SELECT idUser,idStand  FROM evaluationstand ";
         int test=0;
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req3) ;
+            PreparedStatement ste = ds.prepareStatement(req3) ;
              ResultSet result =ste.executeQuery() ; 
             while (result.next()){
            
@@ -54,7 +59,7 @@ public class EvaluationStandService {
         {
     String req="INSERT INTO evaluationstand (idStand,idUser,note) VALUES(?,?,?)" ; 
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              
             ste.setInt(1,es.getIdStand()) ; 
             ste.setInt(2,es.getIdUser()) ; 
@@ -69,11 +74,11 @@ public class EvaluationStandService {
         return test;
     }
     
-    public static void updateEvaluationStand (EvaluationStand es)
+    public void updateEvaluationStand (EvaluationStand es)
     {
     String req="UPDATE evaluationstand SET idStand=?,idUser=?,note=? WHERE idEvaluationStand =?" ; 
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              
             ste.setInt(1,es.getIdStand()) ; 
             ste.setInt(2,es.getIdUser()) ; 
@@ -89,11 +94,11 @@ public class EvaluationStandService {
     
     }
     
-    public static void DeleteEvenementById (int es)
+    public void DeleteEvenementById (int es)
     {
     String req="DELETE  from evaluationstand where  idEvaluationStand =?" ; 
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              
             
             ste.setInt(1,es) ;
@@ -105,13 +110,13 @@ public class EvaluationStandService {
     }
     
     
-    public static List<EvaluationStand> selectEvaluationStand ()
+    public List<EvaluationStand> selectEvaluationStand ()
     {
         List<EvaluationStand> list =new ArrayList<>() ; 
     String req ; 
         req = "SELECT *  FROM evaluationstand ";
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
              ResultSet result =ste.executeQuery() ; 
             while (result.next()){
             list.add(new EvaluationStand(
@@ -129,14 +134,14 @@ public class EvaluationStandService {
     return list ; 
       }
     
-    public static float CalculeMoyByStand (int idStand)
+    public float CalculeMoyByStand (int idStand)
     {  float moyenne = 0;
        int i=0;
     
     String req ; 
         req = "SELECT note  FROM evaluationstand where idStand =?  ";
         try { 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+            PreparedStatement ste = ds.prepareStatement(req) ;
               ste.setInt(1,idStand) ;
              ResultSet result =ste.executeQuery() ; 
             while (result.next()){
