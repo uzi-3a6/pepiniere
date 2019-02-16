@@ -28,7 +28,7 @@ public class ReservationEvenementService {
          ds = MyDBcon.getInstance().getCnx();
     }
      
-       public void insererReservationEvenement (ReservationEvenement re)
+       public int insererReservationEvenement (ReservationEvenement re)
     {
         int test=0;
         String req2 = "SELECT nbPlace  FROM evenement WHERE idEvenement =? ";
@@ -55,9 +55,12 @@ public class ReservationEvenementService {
                                 } catch (SQLException ex) {
                                 }
                         System.out.println("l'evenement est complet");
+                        return 1;
                     }
                     else if(result.getInt("nbPlace")< re.getNbPersonnes())
-                    {System.out.println("nb place demandee est superieur au nombre diponible");}
+                    {System.out.println("nb place demandee est superieur au nombre diponible");
+                    return 2 ;
+                    }
                     else
                     {
                         String req="INSERT INTO reservationevenement (idEvenement,idUser,dateReservation,nbPersonnes) VALUES(?,?,?,?)" ; 
@@ -72,7 +75,7 @@ public class ReservationEvenementService {
             
             stee.executeUpdate() ; 
                     System.out.println("ajouter avec succee");
-
+             
             
         } catch (SQLException ex) {
         }
@@ -104,7 +107,7 @@ public class ReservationEvenementService {
         
     
     
-        
+        return 0;
     }
        public void updateReservationEvenement (ReservationEvenement re)
     {
@@ -166,6 +169,29 @@ public class ReservationEvenementService {
     return list ; 
       } 
        
+      public int verifReservationEvenement (int e,int re)
+    {
+        String req ; 
+        req = "SELECT *  FROM reservationevenement ";
+        try { 
+            PreparedStatement ste = ds.prepareStatement(req) ;
+             ResultSet result =ste.executeQuery() ; 
+            while (result.next()){
+            if((result.getInt("idEvenement")==e)&&(result.getInt("idUser")==re)) 
+            {
+                return 1 ;
+            }
+           
+            }
+            
+        } catch (SQLException ex) {
+            
+        }
+        
+        
+        
+    return 0;
+    }
       
      
      

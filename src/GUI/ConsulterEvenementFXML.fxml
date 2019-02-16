@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ConsulterEvenementFXMLController">
-    
+<AnchorPane id="AnchorPane" prefHeight="536.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ConsulterEvenementFXMLController">
+   <children>
+      <TableView fx:id="tableView" layoutX="28.0" layoutY="144.0" prefHeight="200.0" prefWidth="713.0">
+        <columns>
+          <TableColumn fx:id="nomEvenement" prefWidth="107.0" text="Nom Evenement" />
+          <TableColumn fx:id="Categorie" prefWidth="79.0" text="Categorie" />
+            <TableColumn fx:id="DateDebut" prefWidth="75.0" text="Date debut" />
+            <TableColumn fx:id="DateFin" prefWidth="75.0" text="Date fin" />
+            <TableColumn fx:id="Etat" prefWidth="75.0" text="Etat" />
+            <TableColumn fx:id="nbPlace" prefWidth="75.0" text="nb Place" />
+            <TableColumn fx:id="nbStand" prefWidth="75.0" text="nb Stand" />
+            <TableColumn fx:id="Prix" prefWidth="75.0" text="Prix" />
+            <TableColumn fx:id="Image" prefWidth="75.0" text="image" />
+        </columns>
+      </TableView>
+      <TextField fx:id="nbreserver" layoutX="129.0" layoutY="399.0" />
+      <Button fx:id="reserverbutton" layoutX="371.0" layoutY="446.0" mnemonicParsing="false" onAction="#ReserverEvenement" text="reserver" />
+      <Text layoutX="48.0" layoutY="415.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nb Place" />
+      <TextField fx:id="recherche" layoutX="129.0" layoutY="110.0" prefHeight="25.0" prefWidth="226.0" />
+   </children>
 </AnchorPane>

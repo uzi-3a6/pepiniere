@@ -24,14 +24,14 @@ public class Gestion_evenement {
         Evenement e2 =new Evenement(14,"Competition", "couple exiger",new Date (1996,7,7), new Date (1997,10,10), "en attente", 200,300, 500,"pidev");
         EvenementService es =new EvenementService();
 
-      es.insererEvenement(e1);
+    //  es.insererEvenement(e1);
           
        
-      es.DeleteEvenementById(18);
+   //   es.DeleteEvenementById(18);
       
       
       
-     es.updateEvenement(e2);
+  //   es.updateEvenement(e2);
       
       
      es.selectEvenement().forEach((t)->{System.out.println(t);});

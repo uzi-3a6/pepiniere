@@ -114,34 +114,6 @@ public class AjouterEvenementFXMLController implements Initializable {
         
     }
     
-     @FXML
-    private void ImageAction(ActionEvent event) throws FileNotFoundException, IOException {
-        
-        File dest=new File("C:\\wamp\\www\\Images");
-        
-        fc.setInitialDirectory(new File("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Gestion_evenement\\Images\\"));
-        selectedFile = fc.showOpenDialog(null);
-        FileUtils.copyFileToDirectory(selectedFile, dest);
-        
-        File newFile = new File("C:\\wamp64\\www\\Images\\"+selectedFile.getName());
-       
-        if (selectedFile!= null ) {
-            String a;
-            a=(selectedFile.getName());
-            System.out.println(a);
-            image.setText(a);
-             File imageURL = new File("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Gestion_evenement\\Images\\"+a);
-    
-       
-
-        
-          Image ima=  new Image(imageURL.toURI().toString());
-        
-        images.setImage(ima);
-           
-            
-            
-    }
-    }
+     
     
 }

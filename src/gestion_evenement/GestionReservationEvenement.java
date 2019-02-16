@@ -19,12 +19,12 @@ public class GestionReservationEvenement {
     
     
     public static void main(String[] args) throws SQLException {
-        ReservationEvenement re1 =new ReservationEvenement(18, 3, new Date (1996,7,7), 1);
+        ReservationEvenement re1 =new ReservationEvenement(18, 3, new Date (1996,7,7), 3);
         ReservationEvenement re2 =new ReservationEvenement(1,1, 4, new Date (1996,7,7), 40);
         ReservationEvenementService res =new ReservationEvenementService();
        
         
-      //  res.insererReservationEvenement(re1);
+        //res.insererReservationEvenement(re1);
         
         
      //   res.updateReservationEvenement(re2);

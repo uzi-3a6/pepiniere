@@ -18,31 +18,31 @@ import services.EvaluationStandService;
  */
 public class GestionEvaluationStand {
      public static void main(String[] args) throws SQLException {
-        EvaluationStand es1= new EvaluationStand(3, 2, 8);
+        EvaluationStand es1= new EvaluationStand(4, 2, 8);
          EvaluationStand es2= new EvaluationStand(3,1, 1, 5);
       EvaluationStandService ess= new EvaluationStandService();
       
       
-      
-        /* int test=ess.insererEvaluationStand(es1);
+      /*
+        int test=ess.insererEvaluationStand(es1);
          if(test==0)
          {System.out.println("ajouter avec sucee");}
          else{System.out.println("vous aver deja evaluer le stand");}
-          */
+        */  
     
         
      // ess.updateEvaluationStand(es2);
        
-     // ess.DeleteEvenementById(2);
+     //ess.DeleteEvenementById(12);
          
           
-     //  ess.selectEvaluationStand().forEach((es)->{System.out.println(es);});
+      // ess.selectEvaluationStand().forEach((es)->{System.out.println(es);});
         
       
        /*float moyenne;
        moyenne= ess.CalculeMoyByStand(3);
-       System.out.println(moyenne);*/
-
+       System.out.println(moyenne);
+*/
                                      
        
        
